@@ -1,5 +1,6 @@
 # Import the database object (db) from the main application module
 # We will define this inside /app/__init__.py in the next sections.
+from enum import unique
 from app import db
 
 # Define a base model for other database tables to inherit
@@ -16,18 +17,13 @@ class Base(db.Model):
 class User(Base):
 
     __tablename__ = 'auth_user'
-
-    # User Name
-    name    = db.Column(db.String(128),  nullable=False)
-
-    # Identification Data: email & password
-    email    = db.Column(db.String(128),  nullable=False,
-                                            unique=True)
-    password = db.Column(db.String(192),  nullable=False)
-
-    # Authorisation Data: role & status
-    role     = db.Column(db.SmallInteger, nullable=False)
-    status   = db.Column(db.SmallInteger, nullable=False)
+    usr_id = db.column(db.bigint, unique= True)
+    usr_name    = db.Column(db.String(128),  nullable=False)
+    usr_username    = db.Column(db.String(128),  nullable=False)
+    usr_email    = db.Column(db.String(128),  nullable=False, unique=True)
+    usr_password = db.Column(db.String(192),  nullable=False)
+    usr_role     = db.Column(db.SmallInteger, nullable=False)
+    usr_status   = db.Column(db.SmallInteger, nullable=False)
 
     # New instance instantiation procedure
     def __init__(self, name, email, password):
@@ -37,6 +33,22 @@ class User(Base):
         self.password = password
 
     def __repr__(self):
-        return '<User %r>' % (self.name)      
+        return '<User %r>' % (self.name)  
+class business(Base):
+    __tablename__ = 'business'
+    bsn_id = db.Column(Integer, primary_key=True)
+    bsn_name   = db.Column(db.string(128), nullable=False)
+    bsn_location = db.Column(db.string(128))
+    bsn_longitude = db.column(db.integer)
+    bsn_latittude = db.column(db.integer)
+    bsn_registration_date = db.Column(db.DateTime)
+    bsn_owner_id = db.Column(bigint, ForeignKey('usr.id'))    
+
+    class delivery(Base):
+        __tablename__ = 'delivery'
+    d_id = db.Column(Integer, primary_key=True)
+    d_name   = db.Column(db.string(128), nullable=False, ForeignKey('usr_name'))
+    d_registration_date = db.Column(db.DateTime)
+    d_owner_id = db.Column(bigint, ForeignKey('usr.id'))
 
         
