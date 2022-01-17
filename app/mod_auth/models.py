@@ -36,19 +36,19 @@ class User(Base):
         return '<User %r>' % (self.name)  
 class business(Base):
     __tablename__ = 'business'
-    bsn_id = db.Column(Integer, primary_key=True)
+    bsn_id = db.Column(db.integer, primary_key=True)
     bsn_name   = db.Column(db.string(128), nullable=False)
     bsn_location = db.Column(db.string(128))
     bsn_longitude = db.column(db.integer)
     bsn_latittude = db.column(db.integer)
     bsn_registration_date = db.Column(db.DateTime)
-    bsn_owner_id = db.Column(bigint, ForeignKey('usr.id'))    
+    bsn_owner_id = db.Column(db.bigint, db.ForeignKey('usr.id'))    
 
     class delivery(Base):
         __tablename__ = 'delivery'
-    d_id = db.Column(Integer, primary_key=True)
-    d_name   = db.Column(db.string(128), nullable=False, ForeignKey('usr_name'))
+    d_id = db.Column(db.integer, primary_key=True)
+    d_name   = db.Column(db.string(128),db.ForeignKey('usr_name'), nullable=False, )
     d_registration_date = db.Column(db.DateTime)
-    d_owner_id = db.Column(bigint, ForeignKey('usr.id'))
+    d_owner_id = db.Column(db.bigint, db.ForeignKey('usr.id'))
 
         
