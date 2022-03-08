@@ -45,10 +45,12 @@ class business(Base):
     bsn_owner_id = db.Column(db.bigint, db.ForeignKey('usr.id'))    
 
     class delivery(Base):
-        __tablename__ = 'delivery'
-    d_id = db.Column(db.integer, primary_key=True)
-    d_name   = db.Column(db.string(128),db.ForeignKey('usr_name'), nullable=False, )
-    d_registration_date = db.Column(db.DateTime)
-    d_owner_id = db.Column(db.bigint, db.ForeignKey('usr.id'))
+        __tablename__ = 'rider'
+    r_id = db.Column(db.integer, primary_key=True, nullable=False, unique=True)
+    r_name   = db.Column(db.string(128),db.ForeignKey('usr_name'), nullable=False, )
+    r_phone = db.column(db.integer)
+    usr_email    = db.Column(db.String(128),  nullable=False, unique=True)
+    r_registration_date = db.Column(db.DateTime)
+    r_owner_id = db.Column(db.bigint, db.ForeignKey('usr.id'))
 
         
