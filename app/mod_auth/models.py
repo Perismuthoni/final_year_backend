@@ -36,7 +36,6 @@ class User(Base):
         return '<User %r>' % (self.name)  
 class business(Base):
     __tablename__ = 'business'
-    bsn_id = db.Column(db.integer, primary_key=True)
     bsn_name   = db.Column(db.string(128), nullable=False)
     bsn_location = db.Column(db.string(128))
     bsn_longitude = db.column(db.integer)
